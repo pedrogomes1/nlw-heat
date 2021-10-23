@@ -38,38 +38,36 @@ class AuthenticateUserService {
 
     const { login, id, avatar_url, name } = response.data;
     
-    const user = await prismaClient.user.findFirst({
+    let user = await prismaClient.user.findFirst({
       where: {
         github_id: id
       }
     })
 
     if(!user) {
-      const user = await prismaClient.user.create({
+      user = await prismaClient.user.create({
         data: {
           github_id: id,
-          login,
+          login,  
           avatar_url,
           name,
         }
       })
-      const token = sign({ user: {
-        name: user.name,
-        avatar_url: user.avatar_url,
-        id: user.id
-      }},
-      process.env.JWT_SECRET as Secret,
-        {
-          subject: user.id,
-          expiresIn: '1d'
-        }
-      );
-
-      return { token, user }
     }
+    
+    const token = sign({ user: {
+      name: user.name,
+      avatar_url: user.avatar_url,
+      id: user.id
+    }},
+    process.env.JWT_SECRET as Secret,
+      {
+        subject: user.id,
+        expiresIn: '1d'
+      }
+    );
 
-
-    return response.data;
+    return { token, user }
   }
 }
 
