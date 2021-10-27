@@ -21,8 +21,8 @@ export default function App() {
 
   return (
     <>
-    <StatusBar style="light" />
-    <Home />
+      <StatusBar style="light" />
+      <Home />
     </>
   );
 }
