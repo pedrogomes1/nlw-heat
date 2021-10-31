@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
   TextInput,
@@ -11,6 +11,9 @@ import { styles } from './styles';
 
 export function SendMessageForm() {
 
+  const [message, setMessage] = useState('');
+  const [sendingMessage, setSendingMessage] = useState(false);
+
   return (
     <View style={styles.container}>
       <TextInput
@@ -19,6 +22,9 @@ export function SendMessageForm() {
         placeholderTextColor={COLORS.GRAY_PRIMARY}
         multiline
         maxLength={140}
+        onChangeText={setMessage}
+        value={message}
+        editable={!sendingMessage}
         style={styles.input}
       />
 
