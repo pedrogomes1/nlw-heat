@@ -14,13 +14,13 @@ import LogoSvg from '../../assets/logo.svg';
 
 export function Header() {
 
-  const { user }  = useAuth();
+  const { user, signOut }  = useAuth();
   return (
     <View style={styles.container}>
       <LogoSvg />
 
       <View style={styles.logoutButton}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={signOut}>
           <Text style={styles.logoutText}>
             Sair
           </Text>
