@@ -6,12 +6,15 @@ import {
   View
 } from 'react-native';
 import { UserPhoto } from '../UserPhoto';
+import { useAuth } from '../../hooks/auth';
 
 import { styles } from './styles';
 
 import LogoSvg from '../../assets/logo.svg';
 
 export function Header() {
+
+  const { user }  = useAuth();
   return (
     <View style={styles.container}>
       <LogoSvg />
@@ -22,7 +25,7 @@ export function Header() {
             Sair
           </Text>
         </TouchableOpacity>
-        <UserPhoto imageUri="https://github.com/pedrogomes1.png" />
+        <UserPhoto imageUri={user?.avatar_url} />
       </View>
     </View>
   );
